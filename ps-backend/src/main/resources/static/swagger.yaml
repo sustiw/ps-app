@@ -1,0 +1,88 @@
+openapi: 3.0.1
+info:
+  title: Credit Card API
+  description: API for managing credit cards
+  version: 1.0.0
+
+paths:
+  /creditCards/add:
+    post:
+      summary: Add a new credit card
+      description: Adds a new credit card to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditCard'
+            example:
+              name: John Doe
+              cardNumber: "4111111111111111"
+              balance: 0.0
+              limit: 1000
+      responses:
+        '200':
+          description: Credit card added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: Invalid input or card already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '500':
+          description: Server error while adding card
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+
+  /creditCards/getAll:
+    get:
+      summary: Get all credit cards
+      description: Retrieves a list of all saved credit cards.
+      responses:
+        '200':
+          description: List of credit cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCard'
+
+components:
+  schemas:
+    CreditCard:
+      type: object
+      required:
+        - name
+        - cardNumber
+        - limit
+      properties:
+        name:
+          type: string
+          example: John Doe
+        cardNumber:
+          type: string
+          example: "4111111111111111"
+        balance:
+          type: number
+          format: double
+          example: 0.0
+        limit:
+          type: integer
+          example: 1000
+
+    ResponseMessage:
+      type: object
+      properties:
+        code:
+          type: string
+          example: SUCCESS
+        message:
+          type: string
+          example: Credit card added successfully
