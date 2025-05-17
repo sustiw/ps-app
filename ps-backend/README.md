@@ -22,8 +22,8 @@ A Spring Boot (v3.4.5) based RESTful service to manage credit card information, 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/sustiw/credit-card-api.git
-cd credit-card-api
+git clone https://github.com/sustiw/ps-app.git
+cd ps-backend
 
 
 ### API Endpoints
