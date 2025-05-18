@@ -48,6 +48,7 @@ const addCard = async () => {
                       }else{
                         alert("problem with backed server");
                       }
+                      setCard({name:'',cardNumber:'',limit:''});
                       getCard();
               
 }
