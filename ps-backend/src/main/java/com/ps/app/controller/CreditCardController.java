@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,8 +39,8 @@ public class CreditCardController {
 	@Autowired
 	private CreditCardService creditCardService;
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping(PSConstants.ADD_CREDITCARDS_APIENPOINTS)
-
 	public ResponseEntity<ResponseMessage> addNewCreditCard(@Valid @RequestBody CreditCard creditCard,
 			BindingResult bindResult) {
 		String methodName = "addNewCreditCard";
@@ -66,7 +67,7 @@ public class CreditCardController {
 					message = new ResponseMessage(PSConstants.FAILED, PSConstants._ERR_CARD_ALREADY_ADDED);
 					logger.trace("error", methodName, Level.WARNING);
 
-					return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<ResponseMessage>(message, HttpStatus.CONFLICT);
 				}
 				message = new ResponseMessage(PSConstants.SUCCESS, PSConstants.CARD_ADDED_SUCCESS);
 				logger.trace("exit", methodName, Level.INFO);
@@ -80,6 +81,7 @@ public class CreditCardController {
 
 	}
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(PSConstants.GETALL_API_ENDPOINT)
 	@ResponseBody
 	public ResponseEntity<List<CreditCard>> getAllCreditCards() {
